@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Forex Market Analytics Dashboard (ES5)</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div>
+        <h1>Forex Market Analytics Dashboard</h1>
+        <p class="subtitle">ES5 trading analytics tool for forex pairs</p>
+      </div>
+
+      <div class="controls">
+        <label for="pairSelect">Pair</label>
+        <select id="pairSelect">
+          <option value="EUR/USD">EUR/USD</option>
+          <option value="GBP/USD">GBP/USD</option>
+          <option value="USD/JPY" selected>USD/JPY</option>
+          <option value="AUD/USD">AUD/USD</option>
+          <option value="USD/CHF">USD/CHF</option>
+          <option value="USD/CAD">USD/CAD</option>
+        </select>
+
+        <label for="intervalSelect">Interval</label>
+        <select id="intervalSelect">
+          <option value="1min">1 min</option>
+          <option value="5min" selected>5 min</option>
+          <option value="15min">15 min</option>
+          <option value="30min">30 min</option>
+          <option value="1h">1 hour</option>
+        </select>
+
+        <button id="refreshBtn">Refresh</button>
+      </div>
+    </header>
+
+    <section class="summary-grid">
+        <div class="card stat-card signal-card">
+  <h3>Trade Signal</h3>
+  <div id="tradeSignal" class="signal-wait">WAIT</div>
+</div>
+      <div class="card stat-card">
+        <h3>Current Price</h3>
+        <div class="big-number" id="currentPrice">--</div>
+      </div>
+
+      <div class="card stat-card">
+        <h3>Today's Low</h3>
+        <div class="big-number" id="dayLow">--</div>
+      </div>
+
+      <!--<div class="card stat-card">
+        <h3>This Week's Low</h3>
+        <div class="big-number" id="weekLow">--</div>
+      </div>
+
+      <div class="card stat-card">
+        <h3>This Month's Low</h3>
+        <div class="big-number" id="monthLow">--</div>
+      </div>
+
+      <div class="card stat-card">
+        <h3>This Year's Low</h3>
+        <div class="big-number" id="yearLow">--</div>
+      </div>-->
+
+      <div class="card stat-card">
+        <h3>Daily Range</h3>
+        <div class="big-number" id="dailyRange">--</div>
+      </div>
+
+      <div class="card stat-card">
+        <h3>ADR (14 Days)</h3>
+        <div class="big-number" id="adrValue">--</div>
+      </div>
+
+      <div class="card stat-card">
+        <h3>Asian Session</h3>
+        <div class="mini-stat">H: <span id="asiaHigh">--</span></div>
+        <div class="mini-stat">L: <span id="asiaLow">--</span></div>
+      </div>
+
+      <div class="card stat-card">
+        <h3>London Session</h3>
+        <div class="mini-stat">H: <span id="londonHigh">--</span></div>
+        <div class="mini-stat">L: <span id="londonLow">--</span></div>
+      </div>
+
+      <div class="card stat-card">
+        <h3>New York Session</h3>
+        <div class="mini-stat">H: <span id="newYorkHigh">--</span></div>
+        <div class="mini-stat">L: <span id="newYorkLow">--</span></div>
+      </div>
+
+      <div class="card stat-card">
+        <h3>Trend</h3>
+        <div class="mini-stat">EMA 20: <span id="ema20Value">--</span></div>
+        <div class="mini-stat">EMA 50: <span id="ema50Value">--</span></div>
+        <div class="mini-stat">EMA 200: <span id="ema200Value">--</span></div>
+      </div>
+
+      <div class="card stat-card">
+        <h3>Last Updated</h3>
+        <div class="big-number small" id="lastUpdated">--</div>
+      </div>
+    </section>
+
+    <section class="chart-panel card">
+      <div class="panel-header">
+        <h2>Price Chart + EMA Trend Lines</h2>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="priceChart"></canvas>
+      </div>
+    </section>
+
+    <section class="table-panel card">
+      <div class="panel-header">
+        <h2>Recent Candles</h2>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Open</th>
+              <th>High</th>
+              <th>Low</th>
+              <th>Close</th>
+            </tr>
+          </thead>
+          <tbody id="recentTableBody">
+            <tr>
+              <td colspan="5">Loading...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
